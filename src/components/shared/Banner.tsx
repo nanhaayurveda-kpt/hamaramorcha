@@ -34,7 +34,11 @@ export default async function Banner() {
         <div className="space-y-4">
           <h4 className="text-sm font-semibold">{post.category?.name}</h4>
 
-          <h2 className="text-3xl font-bold">{post.title}</h2>
+          <h2 className="text-3xl font-bold">
+            <Link href={href} className="hover:text-red-500 transition-colors">
+              {post.title}
+            </Link>
+          </h2>
 
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {new Date(post.publishedAt).toLocaleDateString("hi-IN", {

@@ -33,7 +33,11 @@ const NewsCard = ({ post }: NewsCardProps) => {
           {post.category?.name}
         </p>
 
-        <h2 className="text-xl font-semibold my-3">{post.title}</h2>
+        <h2 className="text-xl font-semibold my-3">
+          <Link href={href} className="hover:text-red-500 transition-colors">
+            {post.title}
+          </Link>
+        </h2>
 
         <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
           {new Date(post.publishedAt).toLocaleDateString("hi-IN", {
