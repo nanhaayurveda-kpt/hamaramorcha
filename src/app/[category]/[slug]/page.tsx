@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { getPostBySlugAndCategory } from "@/lib/sanity";
 import ViewsCounter from "@/components/news/ViewsCounter";
-import React from "react";
 
 export default async function PostPage({
   params,
@@ -20,13 +19,11 @@ export default async function PostPage({
 
   return (
     <article className="py-12 max-w-3xl mx-auto">
-      <p className="text-sm text-gray-500 dark:text-gray-400">
-        {post.category?.name}
-      </p>
+      <p className="text-sm text-gray-500">{post.category?.name}</p>
 
       <h1 className="text-3xl font-bold my-4">{post.title}</h1>
 
-      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+      <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
         <span>
           {new Date(post.publishedAt).toLocaleDateString("hi-IN", {
             year: "numeric",
@@ -48,7 +45,7 @@ export default async function PostPage({
             className="w-full rounded"
           />
           {post.mainImageCaption && (
-            <figcaption className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <figcaption className="text-sm text-gray-500 mt-2">
               {post.mainImageCaption}
             </figcaption>
           )}
@@ -56,7 +53,7 @@ export default async function PostPage({
       )}
 
       {post.content && (
-        <div className="prose dark:prose-invert max-w-none">
+        <div className="prose prose-lg max-w-none">
           <PortableText value={post.content} />
         </div>
       )}
