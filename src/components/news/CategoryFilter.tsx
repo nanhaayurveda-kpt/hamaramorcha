@@ -28,11 +28,13 @@ function CategoryFilter({ categories, onCategoryChange }: CategoryFilterProps) {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">सभी</SelectItem>
-          {categories.map((category) => (
-            <SelectItem key={category._id} value={category.slug.current}>
-              {category.name}
-            </SelectItem>
-          ))}
+          {categories.map((category) =>
+            category.slug?.current ? (
+              <SelectItem key={category._id} value={category.slug.current}>
+                {category.name}
+              </SelectItem>
+            ) : null,
+          )}
         </SelectContent>
       </Select>
     </div>

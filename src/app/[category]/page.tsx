@@ -15,7 +15,7 @@ export default async function CategoryPage({
     getCategories(),
   ]);
 
-  const current = categories.find((item) => item.slug.current === category);
+  const current = categories.find((item) => item.slug?.current === category);
 
   if (!current) {
     notFound();

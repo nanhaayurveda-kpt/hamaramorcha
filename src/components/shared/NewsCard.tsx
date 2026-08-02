@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+
 import { Button } from "../ui/button";
 import type { Post } from "@/types/news";
 
@@ -9,7 +9,12 @@ interface NewsCardProps {
 }
 
 const NewsCard = ({ post }: NewsCardProps) => {
-  const href = `/${post.category?.slug.current ?? "vividha"}/${post.slug.current}`;
+  const categorySlug = post.category?.slug?.current;
+  const postSlug = post.slug?.current;
+
+  if (!categorySlug || !postSlug) return null;
+
+  const href = `/${categorySlug}/${postSlug}`;
 
   return (
     <div className="border p-4 rounded-md shadow-md">

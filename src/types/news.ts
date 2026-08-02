@@ -5,7 +5,7 @@ export interface SanitySlug {
 export interface Category {
   _id: string;
   name: string;
-  slug: SanitySlug;
+  slug: SanitySlug | null;
   slugCurrent?: string;
 }
 
@@ -18,7 +18,7 @@ export interface PortableTextBlock {
 export interface Post {
   _id: string;
   title: string;
-  slug: SanitySlug;
+  slug: SanitySlug | null;
   mainImage: string | null;
   mainImageCaption?: string;
   mainImageUrl: string | null;

@@ -20,10 +20,9 @@ function NewsList({ posts, categories }: NewsListProps) {
 
     return posts.filter((post) => {
       const matchesCategory =
-        !category || post.category?.slug.current === category;
+        !category || post.category?.slug?.current === category;
 
-      const matchesSearch =
-        !term || post.title.toLowerCase().includes(term);
+      const matchesSearch = !term || post.title.toLowerCase().includes(term);
 
       return matchesCategory && matchesSearch;
     });
@@ -33,7 +32,10 @@ function NewsList({ posts, categories }: NewsListProps) {
     <div>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-12 mb-5">
         <SearchBar onSearch={setSearch} />
-        <CategoryFilter categories={categories} onCategoryChange={setCategory} />
+        <CategoryFilter
+          categories={categories}
+          onCategoryChange={setCategory}
+        />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-between">

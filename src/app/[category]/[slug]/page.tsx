@@ -31,7 +31,9 @@ export default async function PostPage({
             day: "numeric",
           })}
         </span>
-        <ViewsCounter slug={post.slug.current} initialViews={post.views} />
+        {post.slug?.current && (
+          <ViewsCounter slug={post.slug.current} initialViews={post.views} />
+        )}
       </div>
 
       {post.mainImageUrl && (

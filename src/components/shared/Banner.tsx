@@ -9,7 +9,12 @@ export default async function Banner() {
 
   if (!post) return null;
 
-  const href = `/${post.category?.slug.current ?? "vividha"}/${post.slug.current}`;
+  const categorySlug = post.category?.slug?.current;
+  const postSlug = post.slug?.current;
+
+  if (!categorySlug || !postSlug) return null;
+
+  const href = `/${categorySlug}/${postSlug}`;
 
   return (
     <div className="bg-slate-100 dark:bg-gray-800 dark:text-white rounded-md">
