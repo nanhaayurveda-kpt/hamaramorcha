@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { getPostBySlugAndCategory } from "@/lib/sanity";
 import ViewsCounter from "@/components/news/ViewsCounter";
+import { portableTextComponents } from "@/components/news/PortableTextComponents";
 
 export default async function PostPage({
   params,
@@ -56,7 +57,10 @@ export default async function PostPage({
 
       {post.content && (
         <div className="prose prose-lg max-w-none">
-          <PortableText value={post.content} />
+          <PortableText
+            value={post.content}
+            components={portableTextComponents}
+          />
         </div>
       )}
     </article>

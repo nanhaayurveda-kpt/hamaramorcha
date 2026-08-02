@@ -79,7 +79,25 @@ export async function getPostBySlugAndCategory(
   try {
     const post = await client.fetch<RawPost | null>(
       `*[_type == "post" && slug.current == $slug
-          && category->slug.current == $categorySlug][0] { ${POST_FIELDS} }`,
+          && category->slug.current == $categorySlug][0] {
+        _id,
+        title,
+        slug,
+        mainImage,
+        mainImageCaption,
+        publishedAt,
+        category->{name, slug},
+        views,
+        content[]{
+          ...,
+          _type == "pdfDocument" => {
+            _type,
+            _key,
+            caption,
+            file { asset -> { url } }
+          }
+        }
+      }`,
       { slug, categorySlug },
     );
 
