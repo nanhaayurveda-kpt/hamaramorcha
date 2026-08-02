@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { ThemeProvider } from "@/context/themeContext";
 
 export const metadata: Metadata = {
   title: "हमारा मोर्चा",
@@ -17,13 +16,11 @@ export default function RootLayout({
   return (
     <html lang="hi">
       <body className="antialiased">
-        <ThemeProvider>
-          <Navbar />
-          <main className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {children}
-          </main>
-          <Footer />
-        </ThemeProvider>
+        <Navbar />
+        <main className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

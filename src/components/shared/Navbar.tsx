@@ -9,14 +9,12 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "../ui/navigation-menu";
-import { Switch } from "@/components/ui/switch";
 import MobileMenu from "./MobileMenu";
 import { useState } from "react";
-import { useTheme } from "@/context/themeContext";
 
 export const navItems = [
   { href: "/", label: "Home" },
- { href: "/world", label: "World" },
+  { href: "/world", label: "World" },
   { href: "/india", label: "India" },
   { href: "/programmers", label: "प्रोग्रामर्स" },
   { href: "/academics", label: "Academics" },
@@ -29,16 +27,14 @@ export const navItems = [
 const Navbar = () => {
   const pathname = usePathname();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isDarkMode, toggleTheme } = useTheme();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <header className={isDarkMode ? "bg-gray-900 text-white" : ""}>
-      {/* मास्टहेड */}
-      <div className="bg-zinc-400 dark:bg-gray-800">
+    <header>
+      <div className="bg-zinc-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
           <Link href="/" className="flex flex-col items-start shrink-0">
             <Image
@@ -54,41 +50,34 @@ const Navbar = () => {
             </p>
           </Link>
 
-          <div className="flex items-center gap-3">
-            <div className="hidden lg:flex items-center">
-              <span className="mr-2 text-sm">डार्क मोड</span>
-              <Switch checked={isDarkMode} onCheckedChange={toggleTheme} />
-            </div>
-
-            <button
-              onClick={toggleMobileMenu}
-              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-500/30 transition"
-              aria-label="Toggle mobile menu"
+          <button
+            onClick={toggleMobileMenu}
+            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-500/30 transition"
+            aria-label="Toggle mobile menu"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
+              {isMobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 pb-4 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
@@ -104,7 +93,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* मेन्यू पट्टी */}
       <nav className="shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <NavigationMenu className="hidden lg:flex">
