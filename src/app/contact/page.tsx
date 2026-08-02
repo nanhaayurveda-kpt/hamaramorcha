@@ -1,0 +1,45 @@
+export default function ContactPage() {
+  return (
+    <div className="py-12 max-w-2xl mx-auto">
+      <h1 className="text-3xl font-bold text-center mb-8">संपर्क करें</h1>
+
+      <div className="border rounded-lg p-6 space-y-6">
+        <div className="border-b pb-4">
+          <h2 className="text-xl font-semibold mb-2">संपादक</h2>
+          <p className="text-lg">कामता प्रसाद (कार्यकारी संपादक)</p>
+        </div>
+
+        <div className="border-b pb-4">
+          <h2 className="text-xl font-semibold mb-2">ईमेल</h2>
+          <a
+            href="mailto:hamaramorcha1153@gmail.com"
+            className="text-blue-600 hover:underline text-lg"
+          >
+            hamaramorcha1153@gmail.com
+          </a>
+        </div>
+
+        <div className="border-b pb-4">
+          <h2 className="text-xl font-semibold mb-2">फोन</h2>
+          <a
+            href="tel:+919996865069"
+            className="text-blue-600 hover:underline text-lg"
+          >
+            +91 9996865069
+          </a>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold mb-2">पता</h2>
+          <p className="leading-relaxed">
+            तिवारी भवन, ग्रामः गहरपुर,
+            <br />
+            पोस्टः पुआरीकलाँ-221202,
+            <br />
+            वाराणसी, उत्तर प्रदेश, भारत
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
