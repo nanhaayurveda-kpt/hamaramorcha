@@ -1,6 +1,4 @@
 import { createClient } from "@sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import type { Category, Post } from "@/types/news";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -18,25 +16,11 @@ export const client = createClient({
   token: process.env.SANITY_API_TOKEN,
 });
 
-const builder = imageUrlBuilder(client);
-
-export function urlFor(source: SanityImageSource) {
-  return builder.image(source);
-}
-
 type RawPost = Omit<Post, "mainImageUrl" | "mainImageAlt">;
 
-function getImageUrl(mainImage: RawPost["mainImage"]): string | null {
+function getImageUrl(mainImage: string | null): string | null {
   if (!mainImage) return null;
-
-  if (typeof mainImage === "string" && mainImage.startsWith("http")) {
-    return mainImage;
-  }
-
-  if (mainImage.asset) {
-    return builder.image(mainImage).width(1200).height(630).url();
-  }
-
+  if (mainImage.startsWith("http")) return mainImage;
   return null;
 }
 
@@ -55,16 +39,15 @@ const POST_FIELDS = `
   mainImage,
   mainImageCaption,
   publishedAt,
-  category->{title, name, slug},
+  category->{name, slug},
   content,
-  videoLink,
   views
 `;
 
 export async function getAllPosts(): Promise<Post[]> {
   try {
     const posts = await client.fetch<RawPost[]>(
-      `*[_type == "post"] | order(publishedAt desc) { ${POST_FIELDS} }`
+      `*[_type == "post"] | order(publishedAt desc) { ${POST_FIELDS} }`,
     );
     return posts.map(withImage);
   } catch (error) {
@@ -74,13 +57,13 @@ export async function getAllPosts(): Promise<Post[]> {
 }
 
 export async function getPostsByCategory(
-  categorySlug: string
+  categorySlug: string,
 ): Promise<Post[]> {
   try {
     const posts = await client.fetch<RawPost[]>(
       `*[_type == "post" && category->slug.current == $categorySlug]
         | order(publishedAt desc) { ${POST_FIELDS} }`,
-      { categorySlug }
+      { categorySlug },
     );
     return posts.map(withImage);
   } catch (error) {
@@ -91,32 +74,13 @@ export async function getPostsByCategory(
 
 export async function getPostBySlugAndCategory(
   slug: string,
-  categorySlug: string
+  categorySlug: string,
 ): Promise<Post | null> {
   try {
     const post = await client.fetch<RawPost | null>(
       `*[_type == "post" && slug.current == $slug
-          && category->slug.current == $categorySlug][0] {
-        _id,
-        title,
-        slug,
-        mainImage,
-        mainImageCaption,
-        content[]{
-          ...,
-          _type == "pdfDocument" => {
-            _type,
-            _key,
-            caption,
-            file { asset -> { url } }
-          }
-        },
-        publishedAt,
-        views,
-        videoLink,
-        category->{title, name, slug}
-      }`,
-      { slug, categorySlug }
+          && category->slug.current == $categorySlug][0] { ${POST_FIELDS} }`,
+      { slug, categorySlug },
     );
 
     return post ? withImage(post) : null;
@@ -132,7 +96,7 @@ export async function getPopularPosts(limit = 4): Promise<Post[]> {
       `*[_type == "post"] | order(views desc, publishedAt desc)[0...$limit] {
         ${POST_FIELDS}
       }`,
-      { limit }
+      { limit },
     );
     return posts.map(withImage);
   } catch (error) {
@@ -147,7 +111,7 @@ export async function getRecentPosts(limit = 5): Promise<Post[]> {
       `*[_type == "post"] | order(publishedAt desc)[0...$limit] {
         ${POST_FIELDS}
       }`,
-      { limit }
+      { limit },
     );
     return posts.map(withImage);
   } catch (error) {
@@ -162,10 +126,9 @@ export async function getCategories(): Promise<Category[]> {
       `*[_type == "category"] | order(name asc) {
         _id,
         name,
-        title,
         slug,
         "slugCurrent": slug.current
-      }`
+      }`,
     );
   } catch (error) {
     console.error("Error fetching categories:", error);
