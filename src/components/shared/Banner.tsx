@@ -1,14 +1,13 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { getRecentPosts } from "@/lib/sanity";
+import type { Post } from "@/types/news";
 
-export default async function Banner() {
-  const [post] = await getRecentPosts(1);
+interface BannerProps {
+  post: Post;
+}
 
-  if (!post) return null;
-
+export default function Banner({ post }: BannerProps) {
   const categorySlug = post.category?.slug?.current;
   const postSlug = post.slug?.current;
 
@@ -17,7 +16,7 @@ export default async function Banner() {
   const href = `/${categorySlug}/${postSlug}`;
 
   return (
-    <div className="bg-slate-100 dark:bg-gray-800 dark:text-white rounded-md">
+    <div className="bg-slate-100 rounded-md">
       <div className="px-4 py-8 lg:px-8 grid grid-cols-1 md:grid-cols-2 items-center gap-8">
         <div>
           {post.mainImageUrl ? (
@@ -32,7 +31,7 @@ export default async function Banner() {
               />
             </Link>
           ) : (
-            <div className="w-full aspect-video rounded bg-gray-200 dark:bg-gray-700" />
+            <div className="w-full aspect-video rounded bg-gray-200" />
           )}
         </div>
 
@@ -45,7 +44,7 @@ export default async function Banner() {
             </Link>
           </h2>
 
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500">
             {new Date(post.publishedAt).toLocaleDateString("hi-IN", {
               year: "numeric",
               month: "long",
