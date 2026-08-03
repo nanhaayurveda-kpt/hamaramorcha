@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { client } from "@/lib/sanity";
+import { writeClient } from "@/lib/sanity";
 
 interface PostViews {
   _id: string;
@@ -8,30 +8,32 @@ interface PostViews {
 
 export async function POST(
   request: Request,
-  { params }: { params: Promise<{ slug: string }> }
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
     const { slug } = await params;
 
-    const post = await client.fetch<PostViews | null>(
+    const post = await writeClient.fetch<PostViews | null>(
       `*[_type == "post" && slug.current == $slug][0]{ _id, views }`,
-      { slug }
+      { slug },
     );
 
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    const newViews = (post.views ?? 0) + 1;
+    const updated = await writeClient
+      .patch(post._id)
+      .setIfMissing({ views: 0 })
+      .inc({ views: 1 })
+      .commit<PostViews>();
 
-    await client.patch(post._id).set({ views: newViews }).commit();
-
-    return NextResponse.json({ views: newViews });
+    return NextResponse.json({ views: updated.views ?? 0 });
   } catch (error) {
     console.error("Error incrementing views:", error);
     return NextResponse.json(
       { error: "Failed to increment views" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -16,14 +15,12 @@ interface CategoryFilterProps {
 function CategoryFilter({ categories, onCategoryChange }: CategoryFilterProps) {
   return (
     <div className="flex gap-2 items-center justify-center mx-4">
-      <h3 className="font-bold text-lg mb-2 shrink-0">श्रेणी</h3>
+      <span className="font-bold text-lg shrink-0">श्रेणी</span>
 
       <Select
-        onValueChange={(value) =>
-          onCategoryChange(value === "all" ? "" : value)
-        }
+        onValueChange={(value) => onCategoryChange(value === "all" ? "" : value)}
       >
-        <SelectTrigger className="w-45 rounded-md">
+        <SelectTrigger className="w-44 rounded-md" aria-label="श्रेणी चुनें">
           <SelectValue placeholder="श्रेणी चुनें" />
         </SelectTrigger>
         <SelectContent>

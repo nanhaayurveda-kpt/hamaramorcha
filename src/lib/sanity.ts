@@ -17,6 +17,14 @@ export const client = createClient({
   perspective: "published",
 });
 
+export const writeClient = createClient({
+  projectId,
+  dataset,
+  apiVersion: "2023-05-03",
+  useCdn: false,
+  token: process.env.SANITY_API_TOKEN,
+});
+
 type RawPost = Omit<Post, "mainImageUrl" | "mainImageAlt">;
 
 function getImageUrl(mainImage: string | null): string | null {

@@ -92,9 +92,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="mt-8 pt-6 border-t">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            अंतिम अपडेट: अगस्त 2026
-          </p>
+          <p className="text-sm text-gray-500">अंतिम अपडेट: अगस्त 2026</p>
         </section>
       </div>
     </div>

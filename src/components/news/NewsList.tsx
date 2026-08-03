@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Category, Post } from "@/types/news";
 import NewsCard from "../shared/NewsCard";
 import SearchBar from "./SearchBar";
@@ -38,16 +38,14 @@ function NewsList({ posts, categories }: NewsListProps) {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-between">
-        {filteredPosts.map((post) => (
-          <NewsCard key={post._id} post={post} />
-        ))}
-      </div>
-
-      {filteredPosts.length === 0 && (
-        <p className="text-center text-gray-500 dark:text-gray-400 py-10">
-          कोई समाचार नहीं मिला
-        </p>
+      {filteredPosts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredPosts.map((post) => (
+            <NewsCard key={post._id} post={post} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-500 py-10">कोई समाचार नहीं मिला</p>
       )}
     </div>
   );

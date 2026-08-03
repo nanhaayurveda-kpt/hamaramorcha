@@ -1,4 +1,3 @@
-import React from "react";
 import { Input } from "../ui/input";
 
 interface SearchBarProps {
@@ -8,9 +7,12 @@ interface SearchBarProps {
 function SearchBar({ onSearch }: SearchBarProps) {
   return (
     <div className="mb-4 md:w-3/4">
-      <h3 className="font-bold text-lg mb-2">समाचार खोजें</h3>
+      <label htmlFor="news-search" className="block font-bold text-lg mb-2">
+        समाचार खोजें
+      </label>
       <Input
-        type="text"
+        id="news-search"
+        type="search"
         placeholder="शीर्षक से खोजें..."
         className="p-2 border rounded-md w-full"
         onChange={(e) => onSearch(e.target.value)}

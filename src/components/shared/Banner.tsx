@@ -23,10 +23,11 @@ export default function Banner({ post }: BannerProps) {
             <Link href={href}>
               <Image
                 src={post.mainImageUrl}
-                alt={post.mainImageAlt}
-                width={500}
+                alt={post.mainImageAlt ?? post.title}
+                width={800}
                 height={500}
-                loading="eager"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
                 className="w-full h-auto rounded"
               />
             </Link>
@@ -36,7 +37,9 @@ export default function Banner({ post }: BannerProps) {
         </div>
 
         <div className="space-y-4">
-          <h4 className="text-sm font-semibold">{post.category?.name}</h4>
+          {post.category?.name && (
+            <h4 className="text-sm font-semibold">{post.category.name}</h4>
+          )}
 
           <h2 className="text-3xl font-bold">
             <Link href={href} className="hover:text-red-500 transition-colors">
@@ -44,17 +47,21 @@ export default function Banner({ post }: BannerProps) {
             </Link>
           </h2>
 
-          <p className="text-sm text-gray-500">
-            {new Date(post.publishedAt).toLocaleDateString("hi-IN", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
+          {post.publishedAt && (
+            <p className="text-sm text-gray-500">
+              <time dateTime={post.publishedAt}>
+                {new Date(post.publishedAt).toLocaleDateString("hi-IN", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+            </p>
+          )}
 
-          <Link href={href}>
-            <Button variant="default">पूरा पढ़ें</Button>
-          </Link>
+          <Button asChild variant="default">
+            <Link href={href}>पूरा पढ़ें</Link>
+          </Button>
         </div>
       </div>
     </div>

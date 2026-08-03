@@ -1,4 +1,10 @@
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "हमारी टीम",
+  description: "हमारा मोर्चा की संपादकीय टीम और प्रतिनिधि।",
+};
 
 interface TeamMember {
   name: string;
@@ -71,12 +77,16 @@ export default function TeamPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {teamMembers.map((member) => (
-          <div key={member.email ?? member.name} className="border p-4 rounded-md shadow-md">
+          <div
+            key={member.email ?? member.name}
+            className="border p-4 rounded-md shadow-md"
+          >
             <Image
               src={member.photo}
               alt={member.name}
               width={300}
               height={300}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="w-full h-56 object-cover rounded mb-4"
             />
 
@@ -84,9 +94,7 @@ export default function TeamPage() {
             <p className="text-red-500 font-medium">{member.role}</p>
 
             {member.designation && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                {member.designation}
-              </p>
+              <p className="text-sm text-gray-500 mt-1">{member.designation}</p>
             )}
 
             {member.address && (

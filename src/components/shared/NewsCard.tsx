@@ -24,19 +24,19 @@ const NewsCard = ({ post }: NewsCardProps) => {
             src={post.mainImageUrl}
             width={500}
             height={500}
-            alt={post.mainImageAlt}
-            priority
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            alt={post.mainImageAlt ?? post.title}
             className="mb-5 md:h-56 w-full object-cover rounded hover:scale-105 cursor-pointer transition-all duration-200"
           />
         ) : (
-          <div className="mb-5 md:h-56 w-full rounded bg-gray-200 dark:bg-gray-700" />
+          <div className="mb-5 md:h-56 w-full rounded bg-gray-200" />
         )}
       </Link>
 
       <div>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          {post.category?.name}
-        </p>
+        {post.category?.name && (
+          <p className="text-sm text-gray-500">{post.category.name}</p>
+        )}
 
         <h2 className="text-xl font-semibold my-3">
           <Link href={href} className="hover:text-red-500 transition-colors">
@@ -44,17 +44,21 @@ const NewsCard = ({ post }: NewsCardProps) => {
           </Link>
         </h2>
 
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          {new Date(post.publishedAt).toLocaleDateString("hi-IN", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
+        {post.publishedAt && (
+          <p className="mb-4 text-sm text-gray-500">
+            <time dateTime={post.publishedAt}>
+              {new Date(post.publishedAt).toLocaleDateString("hi-IN", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+          </p>
+        )}
 
-        <Link href={href}>
-          <Button variant="default">पूरा पढ़ें</Button>
-        </Link>
+        <Button asChild variant="default">
+          <Link href={href}>पूरा पढ़ें</Link>
+        </Button>
       </div>
     </div>
   );
