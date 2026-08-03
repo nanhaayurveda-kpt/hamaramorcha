@@ -1,3 +1,4 @@
+import "server-only";
 import { createClient } from "@sanity/client";
 import type { Category, Post } from "@/types/news";
 
@@ -12,8 +13,8 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion: "2023-05-03",
-  useCdn: false,
-  token: process.env.SANITY_API_TOKEN,
+  useCdn: true,
+  perspective: "published",
 });
 
 type RawPost = Omit<Post, "mainImageUrl" | "mainImageAlt">;
@@ -30,6 +31,10 @@ function withImage(post: RawPost): Post {
     mainImageUrl: getImageUrl(post.mainImage),
     mainImageAlt: post.mainImageCaption || post.title,
   };
+}
+
+function toSliceLimit(limit: number): number {
+  return Number.isInteger(limit) && limit > 0 ? limit : 10;
 }
 
 const POST_FIELDS = `
@@ -109,12 +114,12 @@ export async function getPostBySlugAndCategory(
 }
 
 export async function getPopularPosts(limit = 4): Promise<Post[]> {
+  const size = toSliceLimit(limit);
   try {
     const posts = await client.fetch<RawPost[]>(
-      `*[_type == "post"] | order(views desc, publishedAt desc)[0...$limit] {
+      `*[_type == "post"] | order(views desc, publishedAt desc)[0...${size}] {
         ${POST_FIELDS}
       }`,
-      { limit },
     );
     return posts.map(withImage);
   } catch (error) {
@@ -124,12 +129,12 @@ export async function getPopularPosts(limit = 4): Promise<Post[]> {
 }
 
 export async function getRecentPosts(limit = 5): Promise<Post[]> {
+  const size = toSliceLimit(limit);
   try {
     const posts = await client.fetch<RawPost[]>(
-      `*[_type == "post"] | order(publishedAt desc)[0...$limit] {
+      `*[_type == "post"] | order(publishedAt desc)[0...${size}] {
         ${POST_FIELDS}
       }`,
-      { limit },
     );
     return posts.map(withImage);
   } catch (error) {
