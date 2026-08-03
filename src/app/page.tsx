@@ -5,7 +5,7 @@ import { getRecentPosts } from "@/lib/sanity";
 export const revalidate = 60;
 
 const Home = async () => {
-  const posts = await getRecentPosts(13);
+  const posts = await getRecentPosts(25);
   const [featured, ...rest] = posts;
 
   if (posts.length === 0) {
@@ -15,14 +15,14 @@ const Home = async () => {
       </div>
     );
   }
-
+  
   return (
     <div className="py-12">
       <Banner post={featured} />
 
       {rest.length > 0 && (
         <div className="my-12">
-          <h2 className="text-2xl font-bold mb-8">ताज़ा समाचार</h2>
+          <h2 className="text-2xl font-bold mb-8">ताजा समाचार</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {rest.map((post) => (
               <NewsCard key={post._id} post={post} />
