@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@sanity/client";
-import type { Category, Post } from "@/types/news";
+import type { Category, Comment, Post } from "@/types/news";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
@@ -26,6 +26,12 @@ export const writeClient = createClient({
 });
 
 type RawPost = Omit<Post, "mainImageUrl" | "mainImageAlt">;
+
+type PostPath = {
+  categorySlug: string;
+  postSlug: string;
+  publishedAt: string;
+};
 
 function getImageUrl(mainImage: string | null): string | null {
   if (!mainImage) return null;
@@ -151,6 +157,24 @@ export async function getRecentPosts(limit = 5): Promise<Post[]> {
   }
 }
 
+export async function searchPosts(term: string): Promise<Post[]> {
+  const query = term.trim();
+
+  if (!query) return [];
+
+  try {
+    const posts = await client.fetch<RawPost[]>(
+      `*[_type == "post" && (title match $wildcard || pt::text(content) match $wildcard)]
+        | order(publishedAt desc)[0...50] { ${POST_FIELDS} }`,
+      { wildcard: `*${query}*` },
+    );
+    return posts.map(withImage);
+  } catch (error) {
+    console.error("Error searching posts:", error);
+    return [];
+  }
+}
+
 export async function getCategories(): Promise<Category[]> {
   try {
     return await client.fetch<Category[]>(
@@ -163,6 +187,40 @@ export async function getCategories(): Promise<Category[]> {
     );
   } catch (error) {
     console.error("Error fetching categories:", error);
+    return [];
+  }
+}
+
+export async function getAllPostPaths(): Promise<PostPath[]> {
+  try {
+    return await client.fetch<PostPath[]>(
+      `*[_type == "post" && defined(slug.current) && defined(category->slug.current)]
+        | order(publishedAt desc) {
+          "categorySlug": category->slug.current,
+          "postSlug": slug.current,
+          publishedAt
+        }`,
+    );
+  } catch (error) {
+    console.error("Error fetching post paths:", error);
+    return [];
+  }
+}
+
+export async function getApprovedComments(postId: string): Promise<Comment[]> {
+  try {
+    return await client.fetch<Comment[]>(
+      `*[_type == "comment" && post._ref == $postId && approved == true]
+        | order(_createdAt asc) {
+          _id,
+          name,
+          comment,
+          _createdAt
+        }`,
+      { postId },
+    );
+  } catch (error) {
+    console.error("Error fetching comments:", error);
     return [];
   }
 }

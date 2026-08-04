@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { getPostBySlugAndCategory } from "@/lib/sanity";
+import Comments from "@/components/news/Comments";
 import ViewsCounter from "@/components/news/ViewsCounter";
 import { portableTextComponents } from "@/components/news/PortableTextComponents";
 
@@ -21,6 +22,7 @@ export async function generateMetadata({
   if (!post) {
     return { title: "पृष्ठ नहीं मिला" };
   }
+
   return {
     title: post.title,
     description: post.mainImageCaption ?? undefined,
@@ -41,7 +43,7 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound();
   }
-
+  
   return (
     <article className="py-12 max-w-3xl mx-auto">
       {post.category?.name && (
@@ -68,8 +70,8 @@ export default async function PostPage({ params }: PostPageProps) {
             src={post.mainImageUrl}
             width={1200}
             height={630}
-            sizes="(max-width: 768px) 100vw"
-            alt={post.mainImageAlt ?? post.title}
+            sizes="(max-width: 768px) 100vw, 768px"
+            alt={post.mainImageAlt}
             priority
             className="w-full h-auto rounded"
           />
@@ -80,7 +82,6 @@ export default async function PostPage({ params }: PostPageProps) {
           )}
         </figure>
       )}
-
       {post.content && (
         <div className="prose prose-lg max-w-none">
           <PortableText
@@ -89,6 +90,7 @@ export default async function PostPage({ params }: PostPageProps) {
           />
         </div>
       )}
+      <Comments postId={post._id} returnTo={`/${category}/${slug}`} />
     </article>
   );
 }

@@ -7,36 +7,57 @@ export default defineType({
   fields: [
     defineField({
       name: "post",
-      title: "Post",
+      title: "समाचार",
       type: "reference",
       to: [{ type: "post" }],
+      readOnly: true,
     }),
     defineField({
       name: "name",
-      title: "Name",
+      title: "नाम",
       type: "string",
+      readOnly: true,
     }),
     defineField({
       name: "email",
-      title: "Email",
+      title: "ईमेल",
       type: "string",
+      readOnly: true,
     }),
     defineField({
       name: "comment",
-      title: "Comment",
+      title: "टिप्पणी",
       type: "text",
+      rows: 5,
+      readOnly: true,
     }),
     defineField({
       name: "approved",
-      title: "Approved",
+      title: "मंज़ूर",
       type: "boolean",
+      description: "टिक करने पर ही टिप्पणी वेबसाइट पर दिखेगी।",
       initialValue: false,
     }),
   ],
+  orderings: [
+    {
+      title: "नई पहले",
+      name: "createdAtDesc",
+      by: [{ field: "_createdAt", direction: "desc" }],
+    },
+  ],
   preview: {
     select: {
-      title: "name",
-      subtitle: "comment",
+      name: "name",
+      comment: "comment",
+      approved: "approved",
+      postTitle: "post.title",
+    },
+    prepare({ name, comment, approved, postTitle }) {
+      return {
+        title: `${approved ? "✓" : "•"} ${name ?? "अनाम"}`,
+        subtitle: `${postTitle ?? "—"} — ${comment ?? ""}`,
+      };
     },
   },
 });

@@ -28,3 +28,10 @@ export interface Post {
   content?: PortableTextBlock[];
   views?: number;
 }
+
+export interface Comment {
+  _id: string;
+  name: string;
+  comment: string;
+  _createdAt: string;
+}

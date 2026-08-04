@@ -1,5 +1,5 @@
 {
-  "name": "news-portal-using-nextjs",
+  "name": "hamaramorcha",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,8 +19,10 @@
     "@sanity/image-url": "^2.1.1",
     "@sanity/ui": "^3.5.1",
     "@sanity/vision": "^6.8.0",
+    "arctic": "^3.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "jose": "^6.2.7",
     "lucide-react": "^0.561.0",
     "next": "16.2.12",
     "next-sanity": "^13.2.3",

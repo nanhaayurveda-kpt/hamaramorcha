@@ -87,7 +87,7 @@ export default function TeamPage() {
               width={300}
               height={300}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="w-full h-56 object-cover rounded mb-4"
+              className="w-full aspect-square object-contain bg-gray-100 rounded mb-4"
             />
 
             <h2 className="text-xl font-semibold">{member.name}</h2>
