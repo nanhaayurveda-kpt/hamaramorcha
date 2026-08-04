@@ -18,7 +18,7 @@ export const STATE_COOKIE = "hm_oauth_state";
 export const VERIFIER_COOKIE = "hm_oauth_verifier";
 
 export function getRedirectUri(origin: string): string {
-  return `${origin}/api/auth/callback`;
+  return `${origin}/api/auth/callback/google`;
 }
 
 export function createGoogleClient(origin: string) {
