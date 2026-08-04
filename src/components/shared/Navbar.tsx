@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import SiteSearch from "./SiteSearch";
 
 export const navItems = [
   { href: "/", label: "Home" },
@@ -69,6 +70,10 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
+
+          <div className="pb-3 flex justify-center sm:justify-end">
+            <SiteSearch />
+          </div>
         </div>
       </nav>
     </header>

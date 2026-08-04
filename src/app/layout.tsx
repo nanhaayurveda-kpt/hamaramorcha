@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
@@ -37,7 +38,9 @@ export default function RootLayout({
   return (
     <html lang="hi">
       <body className="antialiased">
-        <Navbar />
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
         <main className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {children}
         </main>
