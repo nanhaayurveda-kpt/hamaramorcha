@@ -7,6 +7,7 @@ import { structureTool } from "sanity/structure";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { structure } from "./sanity/structure";
+import { approveCommentAction } from "./sanity/actions/approveComment";
 
 export default defineConfig({
   basePath: "/studio",
@@ -15,5 +16,14 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-  plugins: [structureTool({ structure }), visionTool({ defaultApiVersion: apiVersion })],
+  document: {
+    actions: (prev, context) =>
+      context.schemaType === "comment"
+        ? [approveCommentAction, ...prev]
+        : prev,
+  },
+  plugins: [
+    structureTool({ structure }),
+    visionTool({ defaultApiVersion: apiVersion }),
+  ],
 });
