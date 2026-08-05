@@ -1,10 +1,22 @@
 import type { StructureResolver } from "sanity/structure";
 
+const API_VERSION = "2023-05-03";
+
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Content")
     .items([
-      S.documentTypeListItem("post").title("समाचार"),
+      S.listItem()
+        .id("posts")
+        .title("समाचार")
+        .child(
+          S.documentList()
+            .id("posts-list")
+            .title("समाचार")
+            .apiVersion(API_VERSION)
+            .filter('_type == "post"')
+            .defaultOrdering([{ field: "publishedAt", direction: "desc" }]),
+        ),
       S.documentTypeListItem("category").title("श्रेणियाँ"),
       S.divider(),
       S.listItem()
@@ -22,6 +34,7 @@ export const structure: StructureResolver = (S) =>
                   S.documentList()
                     .id("comments-pending-list")
                     .title("मंज़ूरी बाकी")
+                    .apiVersion(API_VERSION)
                     .filter('_type == "comment" && approved != true')
                     .defaultOrdering([
                       { field: "_createdAt", direction: "desc" },
@@ -34,6 +47,7 @@ export const structure: StructureResolver = (S) =>
                   S.documentList()
                     .id("comments-approved-list")
                     .title("मंज़ूर")
+                    .apiVersion(API_VERSION)
                     .filter('_type == "comment" && approved == true')
                     .defaultOrdering([
                       { field: "_createdAt", direction: "desc" },
