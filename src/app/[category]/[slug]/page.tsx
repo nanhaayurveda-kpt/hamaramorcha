@@ -23,14 +23,29 @@ export async function generateMetadata({
     return { title: "पृष्ठ नहीं मिला" };
   }
 
+  const description = post.mainImageCaption ?? post.title;
+  const image = post.mainImageUrl ?? "/og-image.jpg";
+  const url = `/${category}/${slug}`;
+
   return {
     title: post.title,
-    description: post.mainImageCaption ?? undefined,
+    description,
+    alternates: { canonical: url },
     openGraph: {
       title: post.title,
+      description,
+      url,
+      siteName: "हमारा मोर्चा",
+      locale: "hi_IN",
       type: "article",
       publishedTime: post.publishedAt,
-      images: post.mainImageUrl ? [post.mainImageUrl] : undefined,
+      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [image],
     },
   };
 }
