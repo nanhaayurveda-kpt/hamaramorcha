@@ -10,11 +10,8 @@ export const structure: StructureResolver = (S) =>
         .id("posts")
         .title("समाचार")
         .child(
-          S.documentList()
-            .id("posts-list")
+          S.documentTypeList("post")
             .title("समाचार")
-            .apiVersion(API_VERSION)
-            .filter('_type == "post"')
             .defaultOrdering([{ field: "publishedAt", direction: "desc" }]),
         ),
       S.documentTypeListItem("category").title("श्रेणियाँ"),
