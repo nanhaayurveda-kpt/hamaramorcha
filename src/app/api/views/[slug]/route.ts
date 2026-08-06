@@ -7,7 +7,7 @@ interface PostViews {
 }
 
 export async function POST(
-  request: Request,
+ _request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
@@ -23,10 +23,10 @@ export async function POST(
     }
 
     const updated = await writeClient
-      .patch(post._id)
-      .setIfMissing({ views: 0 })
-      .inc({ views: 1 })
-      .commit<PostViews>();
+    .patch(post._id)
+    .setIfMissing({ views: 0 })
+    .inc({ views: 1 })
+    .commit<PostViews>();
 
     return NextResponse.json({ views: updated.views ?? 0 });
   } catch (error) {

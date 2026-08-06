@@ -11,27 +11,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getCategories(),
   ]);
 
-  const staticRoutes: MetadataRoute.Sitemap = [
+   const staticRoutes: MetadataRoute.Sitemap = [
     { url: baseUrl, changeFrequency: "hourly", priority: 1 },
     { url: `${baseUrl}/team`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}/contact`, changeFrequency: "yearly", priority: 0.3 },
     {
       url: `${baseUrl}/privacy-policy`,
-      changeFrequency: "yearly",
+        changeFrequency: "yearly",
       priority: 0.2,
     },
   ];
 
-  const categoryRoutes: MetadataRoute.Sitemap = categories.flatMap((category) =>
-    category.slug?.current
-      ? [
-          {
-            url: `${baseUrl}/${category.slug.current}`,
-            changeFrequency: "daily" as const,
-            priority: 0.7,
-          },
-        ]
-      : [],
+  const categoryRoutes: MetadataRoute.Sitemap = categories.flatMap(
+    (category) =>
+      category.slug?.current
+        ? [
+            {
+              url: `${baseUrl}/${category.slug.current}`,
+              changeFrequency: "daily" as const,
+              priority: 0.7,
+            },
+          ]
+        : [],
   );
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({

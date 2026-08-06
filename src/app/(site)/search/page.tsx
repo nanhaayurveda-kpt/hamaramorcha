@@ -42,7 +42,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </div>
       ) : (
         term && (
-          <p className="text-center text-gray-500 py-10">कोई समाचार नहीं मिला</p>
+          <p className="text-center text-gray-500 py-10">
+            कोई समाचार नहीं मिला
+          </p>
         )
       )}
     </div>
