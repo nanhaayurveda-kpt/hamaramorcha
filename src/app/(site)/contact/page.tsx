@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="py-12 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-center mb-8">संपर्क करें</h1>
+      <h1 className="text-3xl font-bold text-center text-fuchsia-700 mb-8">संपर्क करें</h1>
 
-      <div className="border rounded-lg p-6 space-y-6">
-        <div className="border-b pb-4">
+      <div className="border-4 border-teal-700 bg-amber-700 text-zink-600 rounded-lg p-6 space-y-6">
+        <div className="border-b-4 border-sky-600 pb-4">
           <h2 className="text-xl font-semibold mb-2">संपादक</h2>
           <p className="text-lg">कामता प्रसाद (कार्यकारी संपादक)</p>
         </div>
@@ -21,7 +21,7 @@ export default function ContactPage() {
 
           <a
             href="mailto:hamaramorcha1153@gmail.com"
-            className="text-blue-600 hover:underline text-lg"
+            className="text-rose-700 hover:underline text-xl"
           >
             hamaramorcha1153@gmail.com
           </a>
@@ -32,7 +32,7 @@ export default function ContactPage() {
 
           <a
             href="tel:+919996865069"
-            className="text-blue-600 hover:underline text-lg"
+            className="text-pink-700 hover:underline text-xl"
           >
             +919996865069
           </a>

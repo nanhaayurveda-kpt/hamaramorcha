@@ -13,9 +13,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-6">
-            <h2 className="text-2xl font-bold text-gray-900">हमारा मोर्चा</h2>
-            <div className="mt-3 h-0.5 w-12 bg-red-500" />
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-600">
+            <h2 className="text-3xl font-bold text-red-700">हमारा मोर्चा</h2>
+            <div className="mt-3 h-1 w-36 bg-green-700" />
+            <p className="mt-4 max-w-md text-xl leading-relaxed text-purple-700">
               सफेदपोश मरभुक्खों अर्थात नाममात्र के वेतन पर खटने वाले
               बौद्धिक-जनों की भी पीड़ा को स्वर देने का मंच
             </p>
