@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "संपर्क करें",
+  description: "हमारा मोर्चा से संपर्क करने के लिए पता, फोन और ईमेल",
+};
+
 export default function ContactPage() {
   return (
     <div className="py-12 max-w-2xl mx-auto">
@@ -11,6 +18,7 @@ export default function ContactPage() {
 
         <div className="border-b pb-4">
           <h2 className="text-xl font-semibold mb-2">ईमेल</h2>
+
           <a
             href="mailto:hamaramorcha1153@gmail.com"
             className="text-blue-600 hover:underline text-lg"
@@ -21,11 +29,25 @@ export default function ContactPage() {
 
         <div className="border-b pb-4">
           <h2 className="text-xl font-semibold mb-2">फोन</h2>
+
           <a
             href="tel:+919996865069"
             className="text-blue-600 hover:underline text-lg"
           >
-            +91 9996865069
+            +919996865069
+          </a>
+        </div>
+
+        <div className="border-b pb-4">
+          <h2 className="text-xl font-semibold mb-2">WhatsApp</h2>
+
+          <a
+            href="https://wa.me/919996865069"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline text-lg"
+          >
+            संदेश भेजें
           </a>
         </div>
 
@@ -34,7 +56,7 @@ export default function ContactPage() {
           <p className="leading-relaxed">
             तिवारी भवन, ग्रामः गहरपुर,
             <br />
-            पोस्टः पुआरीकलाँ-221202,
+            पोस्टः पुआरीकलां-221202,
             <br />
             वाराणसी, उत्तर प्रदेश, भारत
           </p>
