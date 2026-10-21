@@ -39,16 +39,25 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 pb-4 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
-          <p className="text-sm sm:text-base text-rose-600 font-bold text-center">
-            Need a Website, Software or Mobile App? Contact us today.
-          </p>
-          <a
-            href="tel:+919996865069"
-            className="text-indigo-700 font-bold text-base sm:text-lg whitespace-nowrap"
-          >
-            +91 9996865069
-          </a>
+        <div className="max-w-7xl mx-auto px-4 pb-4 flex justify-center">
+          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5 rounded-xl border-2 border-rose-300 bg-white/70 px-5 py-3 shadow-sm">
+            <p className="text-center text-sm sm:text-base font-semibold text-gray-800 leading-relaxed">
+              <span className="text-rose-600 font-bold">
+                सी, पायथन, जावास्क्रिप्ट, गो, रस्ट, सॉलिडिटी
+              </span>{" "}
+              जैसी भाषाओं और{" "}
+              <span className="text-green-700 font-bold">
+                कंप्यूटर साइंस के बुनियादी सिद्धांतों
+              </span>{" "}
+              को हिंदी में पढ़ने के लिए संपर्क करें।
+            </p>
+            <a
+              href="tel:+919996865069"
+              className="whitespace-nowrap rounded-full bg-indigo-700 px-4 py-2 text-base sm:text-lg font-bold text-white transition-colors hover:bg-indigo-800"
+            >
+              +91 9996865069
+            </a>
+          </div>
         </div>
       </div>
 
