@@ -107,6 +107,7 @@ export async function getPostBySlugAndCategory(
         publishedAt,
         category->{name, slug},
         views,
+        markdownContent,
         content[]{
           ...,
           _type == "pdfDocument" => {

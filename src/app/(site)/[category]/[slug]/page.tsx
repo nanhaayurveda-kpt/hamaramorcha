@@ -6,6 +6,7 @@ import { getPostBySlugAndCategory } from "@/lib/sanity";
 import Comments from "@/components/news/Comments";
 import ViewsCounter from "@/components/news/ViewsCounter";
 import { portableTextComponents } from "@/components/news/PortableTextComponents";
+import MarkdownContent from "@/components/news/MarkdownContent";
 
 export const revalidate = 60;
 
@@ -97,13 +98,17 @@ export default async function PostPage({ params }: PostPageProps) {
           )}
         </figure>
       )}
-      {post.content && (
-        <div className="prose prose-lg max-w-none">
-          <PortableText
-            value={post.content}
-            components={portableTextComponents}
-          />
-        </div>
+      {post.markdownContent?.trim() ? (
+        <MarkdownContent source={post.markdownContent} />
+      ) : (
+        post.content && (
+          <div className="prose prose-lg max-w-none">
+            <PortableText
+              value={post.content}
+              components={portableTextComponents}
+            />
+          </div>
+        )
       )}
       <Comments postId={post._id} returnTo={`/${category}/${slug}`} />
     </article>

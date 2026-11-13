@@ -26,6 +26,7 @@ export interface Post {
   publishedAt: string;
   category: Category | null;
   content?: PortableTextBlock[];
+  markdownContent?: string;
   views?: number;
 }
 

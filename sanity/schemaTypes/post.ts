@@ -39,7 +39,21 @@ export default defineType({
       name: "content",
       title: "सामग्री",
       type: "blockContent",
-      validation: (Rule) => Rule.required().error("सामग्री आवश्यक है"),
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const doc = context.document as { markdownContent?: string } | undefined;
+          if (doc?.markdownContent?.trim()) return true;
+          const blocks = value as unknown[] | undefined;
+          return blocks && blocks.length > 0 ? true : "सामग्री आवश्यक है";
+        }),
+    }),
+    defineField({
+      name: "markdownContent",
+      title: "सामग्री (Markdown)",
+      description:
+        "अगर यहाँ मार्कडाउन भरा है तो साइट पर यही दिखेगा, ऊपर वाली सामग्री नहीं।",
+      type: "text",
+      rows: 30,
     }),
     defineField({
       name: "mainImage",
