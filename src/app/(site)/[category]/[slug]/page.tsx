@@ -8,7 +8,7 @@ import ViewsCounter from "@/components/news/ViewsCounter";
 import { portableTextComponents } from "@/components/news/PortableTextComponents";
 import MarkdownContent from "@/components/news/MarkdownContent";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 type PostPageProps = {
   params: Promise<{ category: string; slug: string }>;
@@ -59,7 +59,7 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound();
   }
-  
+
   return (
     <article className="py-12 max-w-3xl mx-auto">
       {post.category?.name && (

@@ -2,7 +2,7 @@ import Banner from "@/components/shared/Banner";
 import NewsCard from "@/components/shared/NewsCard";
 import { getRecentPosts } from "@/lib/sanity";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 const Home = async () => {
   const posts = await getRecentPosts(25);
@@ -15,7 +15,7 @@ const Home = async () => {
       </div>
     );
   }
-  
+
   return (
     <div className="py-12">
       <Banner post={featured} />

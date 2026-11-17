@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import NewsList from "@/components/news/NewsList";
 import { getCategories, getPostsByCategory } from "@/lib/sanity";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 type CategoryPageProps = {
   params: Promise<{ category: string }>;

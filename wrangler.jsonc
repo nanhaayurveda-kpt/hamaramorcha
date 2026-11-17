@@ -1,0 +1,16 @@
+{
+  "name": "hamaramorcha",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "NEXT_PUBLIC_SANITY_DATASET": "production",
+    "NEXT_PUBLIC_SANITY_PROJECT_ID": "4ifmq4x3",
+  },
+  "services": [
+    {
+      "binding": "RESPONSE_STORE",
+      "service": "hamaramorcha-response-store",
+      "entrypoint": "ResponseStoreService",
+    },
+  ],
+}
